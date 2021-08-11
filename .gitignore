@@ -30,14 +30,20 @@ for i in range(0, size):
         grade = grade.upper()
         credit_hour = input()
         if "A" <= grade <= "D" or grade == "F":
-            if 1 <= int(credit_hour) <= 4:
-                grades.append(grade)
-                credit_hours.append(int(credit_hour))
-                valid = False
-            else:
-                print("Invalid credit hours! Re-enter valid credit hours for course " + str(i+1) + ": ")
+            try:
+                val = int(credit_hour)
+                if 1 <= int(credit_hour) <= 4:
+                    grades.append(grade)
+                    credit_hours.append(int(credit_hour))
+                    valid = False
+                    break
+                else:
+                    print("Invalid credit hours! Re-enter valid credit hours (1-4) for course " + str(i+1) + ": ")
+            except ValueError:
+                print("Invalid credit hours! Re-enter valid credit hours (integer value) for course " + str(i+1) + ": ")
         else:
-            print("Invalid letter grade! Re-enter a valid letter grade for course " + str(i + 1) + ": ")
+            print("Invalid letter grade/credit hours! Re-enter a valid letter (A-D, F) grade and credit hours (1-4) "
+                  "for course " + str(i + 1) + ": ")
 
 
 for i in range(0, size):
@@ -60,5 +66,6 @@ for i in range(0, size):
 for i in range(0, size):
     calc_grade = calc_grade + results[i]
     sum_hours = sum_hours + credit_hours[i]
+
 gpa = float(calc_grade / sum_hours)
 print("Your GPA is: " + str(gpa))
